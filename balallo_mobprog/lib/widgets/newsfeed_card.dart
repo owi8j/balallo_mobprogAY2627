@@ -194,3 +194,4 @@ class NewsFeedCard extends StatelessWidget {
     );
   }
 }
+
