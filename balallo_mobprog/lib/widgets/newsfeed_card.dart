@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../constants.dart';
@@ -34,8 +33,7 @@ class NewsFeedCard extends StatelessWidget {
               children: [
                 CircleAvatar(
                   radius: 20.r,
-                  backgroundImage:
-                      const AssetImage('assets/images/owl.jpg'),
+                  backgroundImage: const AssetImage('assets/images/owl.jpg'),
                 ),
                 SizedBox(width: 10.w),
                 Expanded(
@@ -56,11 +54,7 @@ class NewsFeedCard extends StatelessWidget {
                             color: Colors.grey,
                           ),
                           SizedBox(width: 3.w),
-                          Icon(
-                            Icons.public,
-                            color: Colors.grey,
-                            size: 15.sp,
-                          ),
+                          Icon(Icons.public, color: Colors.grey, size: 15.sp),
                         ],
                       ),
                     ],
@@ -73,30 +67,24 @@ class NewsFeedCard extends StatelessWidget {
             SizedBox(height: 10.h),
 
             // POST CONTENT
-            CustomFont(
-              text: postContent,
-              fontSize: 12.sp,
-              color: Colors.black,
-            ),
+            CustomFont(text: postContent, fontSize: 12.sp, color: Colors.black),
 
             SizedBox(height: 10.h),
 
-              // ENHANCEMENT 1: DISPLAY NEWSFEED IMAGE
-                if (hasImage)
-                  SizedBox(
-                    width: double.infinity,
-                    height: 250.h,
-                    child: Image.asset(
-                      'assets/images/owl.jpg',
-                      width: double.infinity,
-                      fit: BoxFit.cover,
-                      errorBuilder: (context, error, stackTrace) {
-                        return const Center(
-                          child: Text('Image not found'),
-                        );
-                      },
-                    ),
-                  ),
+            // ENHANCEMENT 1: DISPLAY NEWSFEED IMAGE
+            if (hasImage)
+              SizedBox(
+                width: double.infinity,
+                height: 250.h,
+                child: Image.asset(
+                  'assets/images/owl.jpg',
+                  width: double.infinity,
+                  fit: BoxFit.cover,
+                  errorBuilder: (context, error, stackTrace) {
+                    return const Center(child: Text('Image not found'));
+                  },
+                ),
+              ),
             SizedBox(height: 5.h),
 
             // LIKE, COMMENT AND SHARE BUTTONS
@@ -107,10 +95,7 @@ class NewsFeedCard extends StatelessWidget {
                   onPressed: () {
                     debugPrint('Liked');
                   },
-                  icon: const Icon(
-                    Icons.thumb_up,
-                    color: FB_DARK_PRIMARY,
-                  ),
+                  icon: const Icon(Icons.thumb_up, color: FB_DARK_PRIMARY),
                   label: CustomFont(
                     text: numOfLikes.toString(),
                     fontSize: 12.sp,
@@ -122,10 +107,7 @@ class NewsFeedCard extends StatelessWidget {
                   onPressed: () {
                     debugPrint('Comment pressed');
                   },
-                  icon: const Icon(
-                    Icons.comment,
-                    color: FB_DARK_PRIMARY,
-                  ),
+                  icon: const Icon(Icons.comment, color: FB_DARK_PRIMARY),
                   label: CustomFont(
                     text: 'Comment',
                     fontSize: 12.sp,
@@ -137,10 +119,7 @@ class NewsFeedCard extends StatelessWidget {
                   onPressed: () {
                     debugPrint('Share pressed');
                   },
-                  icon: const Icon(
-                    Icons.share,
-                    color: FB_DARK_PRIMARY,
-                  ),
+                  icon: const Icon(Icons.share, color: FB_DARK_PRIMARY),
                   label: CustomFont(
                     text: 'Share',
                     fontSize: 12.sp,
@@ -155,15 +134,12 @@ class NewsFeedCard extends StatelessWidget {
               children: [
                 CircleAvatar(
                   radius: 16.r,
-                  backgroundImage:
-                      const AssetImage('assets/images/owl.jpg'),
+                  backgroundImage: const AssetImage('assets/images/owl.jpg'),
                 ),
                 SizedBox(width: 10.w),
                 Expanded(
                   child: Container(
-                    padding: EdgeInsets.symmetric(
-                      horizontal: 10.w,
-                    ),
+                    padding: EdgeInsets.symmetric(horizontal: 10.w),
                     alignment: Alignment.centerLeft,
                     height: 35.h,
                     decoration: BoxDecoration(
@@ -194,4 +170,3 @@ class NewsFeedCard extends StatelessWidget {
     );
   }
 }
-
