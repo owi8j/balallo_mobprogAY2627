@@ -1,107 +1,192 @@
+
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import '../constants.dart';
+import 'custom_font.dart';
 
 class NewsFeedCard extends StatelessWidget {
   final String userName;
   final String postContent;
-  final int numOfLikes;
   final String date;
+  final int numOfLikes;
   final bool hasImage;
 
   const NewsFeedCard({
-    Key? key,
+    super.key,
     required this.userName,
     required this.postContent,
-    required this.numOfLikes,
+    this.numOfLikes = 0,
+    this.hasImage = false,
     required this.date,
-    required this.hasImage,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
     return Card(
-      margin: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 10.0),
-      elevation: 1,
+      margin: EdgeInsets.all(10.w),
       child: Padding(
-        padding: const EdgeInsets.all(12.0),
+        padding: EdgeInsets.all(10.w),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // User Profile Header (Enhancement 2)
+            // USER PROFILE AND INFORMATION
             Row(
               children: [
-                const CircleAvatar(
-                  radius: 20,
-                  backgroundImage: AssetImage('assets/images/profile.jpg'),
+                CircleAvatar(
+                  radius: 20.r,
+                  backgroundImage:
+                      const AssetImage('assets/images/owl.jpg'),
                 ),
-                const SizedBox(width: 10),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      userName,
-                      style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
-                    ),
-                    Text(
-                      date,
-                      style: const TextStyle(color: Colors.grey, fontSize: 12),
-                    ),
-                  ],
+                SizedBox(width: 10.w),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      CustomFont(
+                        text: userName,
+                        fontSize: 15.sp,
+                        color: Colors.black,
+                        fontWeight: FontWeight.bold,
+                      ),
+                      Row(
+                        children: [
+                          CustomFont(
+                            text: date,
+                            fontSize: 12.sp,
+                            color: Colors.grey,
+                          ),
+                          SizedBox(width: 3.w),
+                          Icon(
+                            Icons.public,
+                            color: Colors.grey,
+                            size: 15.sp,
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
                 ),
+                const Icon(Icons.more_horiz),
               ],
             ),
-            const SizedBox(height: 10),
-            
-            // Post Content Text
-            Text(
-              postContent,
-              style: const TextStyle(fontSize: 14),
-            ),
-            const SizedBox(height: 10),
 
-            // Conditional Image Area (Enhancement 1)
-            hasImage
-                ? ClipRRect(
-                    borderRadius: BorderRadius.circular(8.0),
+            SizedBox(height: 10.h),
+
+            // POST CONTENT
+            CustomFont(
+              text: postContent,
+              fontSize: 12.sp,
+              color: Colors.black,
+            ),
+
+            SizedBox(height: 10.h),
+
+              // ENHANCEMENT 1: DISPLAY NEWSFEED IMAGE
+                if (hasImage)
+                  SizedBox(
+                    width: double.infinity,
+                    height: 250.h,
                     child: Image.asset(
-                      'assets/images/icpepncr.jpg',
-                      fit: BoxFit.cover,
+                      'assets/images/owl.jpg',
                       width: double.infinity,
-                      height: 220,
-                    ),
-                  )
-                : Container(
-                    height: 150,
-                    decoration: BoxDecoration(
-                      color: Colors.grey[200],
-                      borderRadius: BorderRadius.circular(8.0),
-                    ),
-                    child: const Center(
-                      child: Icon(Icons.image, size: 50, color: Colors.grey),
+                      fit: BoxFit.cover,
+                      errorBuilder: (context, error, stackTrace) {
+                        return const Center(
+                          child: Text('Image not found'),
+                        );
+                      },
                     ),
                   ),
-            const SizedBox(height: 12),
-            const Divider(height: 1),
-            const SizedBox(height: 8),
+            SizedBox(height: 5.h),
 
-            // Action Buttons (Enhancement 3)
+            // LIKE, COMMENT AND SHARE BUTTONS
             Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Row(
-                  children: [
-                    const Icon(Icons.thumb_up_alt_outlined, size: 20, color: Colors.grey),
-                    const SizedBox(width: 6),
-                    Text("$numOfLikes Likes", style: const TextStyle(color: Colors.grey)),
-                  ],
+                TextButton.icon(
+                  onPressed: () {
+                    debugPrint('Liked');
+                  },
+                  icon: const Icon(
+                    Icons.thumb_up,
+                    color: FB_DARK_PRIMARY,
+                  ),
+                  label: CustomFont(
+                    text: numOfLikes.toString(),
+                    fontSize: 12.sp,
+                    color: FB_DARK_PRIMARY,
+                  ),
                 ),
-                const Row(
-                  children: [
-                    Icon(Icons.chat_bubble_outline, size: 20, color: Colors.grey),
-                    SizedBox(width: 6),
-                    Text("Comments", style: TextStyle(color: Colors.grey)),
-                  ],
+
+                TextButton.icon(
+                  onPressed: () {
+                    debugPrint('Comment pressed');
+                  },
+                  icon: const Icon(
+                    Icons.comment,
+                    color: FB_DARK_PRIMARY,
+                  ),
+                  label: CustomFont(
+                    text: 'Comment',
+                    fontSize: 12.sp,
+                    color: FB_DARK_PRIMARY,
+                  ),
+                ),
+
+                TextButton.icon(
+                  onPressed: () {
+                    debugPrint('Share pressed');
+                  },
+                  icon: const Icon(
+                    Icons.share,
+                    color: FB_DARK_PRIMARY,
+                  ),
+                  label: CustomFont(
+                    text: 'Share',
+                    fontSize: 12.sp,
+                    color: FB_DARK_PRIMARY,
+                  ),
                 ),
               ],
+            ),
+
+            // COMMENT INPUT
+            Row(
+              children: [
+                CircleAvatar(
+                  radius: 16.r,
+                  backgroundImage:
+                      const AssetImage('assets/images/owl.jpg'),
+                ),
+                SizedBox(width: 10.w),
+                Expanded(
+                  child: Container(
+                    padding: EdgeInsets.symmetric(
+                      horizontal: 10.w,
+                    ),
+                    alignment: Alignment.centerLeft,
+                    height: 35.h,
+                    decoration: BoxDecoration(
+                      color: Colors.grey[200],
+                      borderRadius: BorderRadius.circular(20.r),
+                    ),
+                    child: CustomFont(
+                      text: 'Write a comment...',
+                      fontSize: 11.sp,
+                      color: Colors.grey,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+
+            SizedBox(height: 10.h),
+
+            CustomFont(
+              text: 'View comments',
+              fontSize: 12.sp,
+              fontWeight: FontWeight.bold,
+              color: Colors.black,
             ),
           ],
         ),
@@ -109,3 +194,4 @@ class NewsFeedCard extends StatelessWidget {
     );
   }
 }
+

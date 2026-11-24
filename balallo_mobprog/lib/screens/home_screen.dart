@@ -2,16 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../constants.dart';
 import '../screens/newsfeed_screen.dart';
-import '../widgets/custom_text.dart';
+import '../widgets/custom_font.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
 
   @override
-  State<HomeScreen> createState() => HomeScreenState();
+  State<HomeScreen> createState() => _HomeScreenState();
 }
 
-class HomeScreenState extends State<HomeScreen> {
+class _HomeScreenState extends State<HomeScreen> {
   int _selectedIndex = 0;
   final PageController _pageController = PageController();
 
@@ -21,7 +21,7 @@ class HomeScreenState extends State<HomeScreen> {
       appBar: AppBar(
         shadowColor: FB_TEXT_COLOR_WHITE,
         elevation: 2,
-        title: CustomText(
+        title: CustomFont(
           text: 'facebook',
           fontSize: ScreenUtil().setSp(25),
           color: FB_PRIMARY,
@@ -30,7 +30,9 @@ class HomeScreenState extends State<HomeScreen> {
       ),
       body: PageView(
         controller: _pageController,
-        children: <Widget>[NewsFeedScreen()],
+        children: const <Widget>[
+          NewsFeedScreen(),
+        ],
         onPageChanged: (page) {
           setState(() {
             _selectedIndex = page;
@@ -42,8 +44,14 @@ class HomeScreenState extends State<HomeScreen> {
         showUnselectedLabels: false,
         onTap: _onTappedBar,
         items: const [
-          BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
-          BottomNavigationBarItem(icon: Icon(Icons.notifications), label: 'Notifications'),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            label: 'Home',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.notifications),
+            label: 'Notifications',
+          ),
         ],
         selectedItemColor: FB_PRIMARY,
         currentIndex: _selectedIndex,
@@ -54,7 +62,7 @@ class HomeScreenState extends State<HomeScreen> {
   void _onTappedBar(int value) {
     setState(() {
       _selectedIndex = value;
+      _pageController.jumpToPage(value);
     });
-    _pageController.jumpToPage(value);
   }
 }
