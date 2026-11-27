@@ -21,8 +21,35 @@ class NotificationItem extends StatelessWidget {
   final bool isUnread;
   final VoidCallback? onTap;
 
+  // Local animal profile pictures
+  static const Map<String, String> _profileImages = {
+    'Test': 'assets/images/profiles/owl.jpg',
+    'Cyrus Robles': 'assets/images/profiles/cat.jpg',
+    'Roben Juanatas': 'assets/images/profiles/dog.jpg',
+    'Khloe Balallo': 'assets/images/profiles/owl.jpg',
+    'Alyssa Reyes': 'assets/images/profiles/fox.jpg',
+    'Marcus Santos': 'assets/images/profiles/bear.jpg',
+    'Sofia Mendoza': 'assets/images/profiles/bird.jpg',
+    'Liam Cruz': 'assets/images/profiles/panda.jpg',
+    'Hannah Villanueva': 'assets/images/profiles/rabbit.jpg',
+    'Noah Bautista': 'assets/images/profiles/deer.jpg',
+    'Chloe Navarro': 'assets/images/profiles/hamster.jpg',
+    'Ethan Ramos': 'assets/images/profiles/cat.jpg',
+    'Mia Castillo': 'assets/images/profiles/dog.jpg',
+    'Lucas Torres': 'assets/images/profiles/fox.jpg',
+    'Zoe Aquino': 'assets/images/profiles/rabbit.jpg',
+    'Gabriel Flores': 'assets/images/profiles/bear.jpg',
+    'Isabella Morales': 'assets/images/profiles/bird.jpg',
+    'Nathaniel Mercado': 'assets/images/profiles/panda.jpg',
+    'Camille Garcia': 'assets/images/profiles/deer.jpg',
+    'Daniel Soriano': 'assets/images/profiles/hamster.jpg',
+  };
+
   @override
   Widget build(BuildContext context) {
+    final profileImage =
+        _profileImages[name] ?? 'assets/images/profiles/owl.jpg';
+
     return InkWell(
       onTap: onTap,
       child: Container(
@@ -34,11 +61,7 @@ class NotificationItem extends StatelessWidget {
             CircleAvatar(
               radius: ScreenUtil().setSp(24),
               backgroundColor: FB_PRIMARY.withOpacity(0.15),
-              child: Icon(
-                Icons.person,
-                size: ScreenUtil().setSp(30),
-                color: FB_PRIMARY,
-              ),
+              backgroundImage: AssetImage(profileImage),
             ),
             SizedBox(width: ScreenUtil().setWidth(12)),
             Expanded(

@@ -8,15 +8,17 @@ class NewsFeedCard extends StatelessWidget {
   final String postContent;
   final String date;
   final int numOfLikes;
-  final bool hasImage;
+  final String profileImage;
+  final String? postImage;
 
   const NewsFeedCard({
     super.key,
     required this.userName,
     required this.postContent,
-    this.numOfLikes = 0,
-    this.hasImage = false,
     required this.date,
+    required this.profileImage,
+    this.numOfLikes = 0,
+    this.postImage,
   });
 
   @override
@@ -28,12 +30,13 @@ class NewsFeedCard extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // USER PROFILE AND INFORMATION
+            // PROFILE AND USER INFORMATION
             Row(
               children: [
                 CircleAvatar(
                   radius: 20.r,
-                  backgroundImage: const AssetImage('assets/images/owl.jpg'),
+                  backgroundColor: Colors.grey[200],
+                  backgroundImage: AssetImage(profileImage),
                 ),
                 SizedBox(width: 10.w),
                 Expanded(
@@ -69,25 +72,39 @@ class NewsFeedCard extends StatelessWidget {
             // POST CONTENT
             CustomFont(text: postContent, fontSize: 12.sp, color: Colors.black),
 
-            SizedBox(height: 10.h),
-
-            // ENHANCEMENT 1: DISPLAY NEWSFEED IMAGE
-            if (hasImage)
-              SizedBox(
-                width: double.infinity,
-                height: 250.h,
-                child: Image.asset(
-                  'assets/images/owl.jpg',
+            // POST PHOTO
+            if (postImage != null) ...[
+              SizedBox(height: 10.h),
+              ClipRRect(
+                borderRadius: BorderRadius.circular(8.r),
+                child: SizedBox(
                   width: double.infinity,
-                  fit: BoxFit.cover,
-                  errorBuilder: (context, error, stackTrace) {
-                    return const Center(child: Text('Image not found'));
-                  },
+                  height: 250.h,
+                  child: Image.asset(
+                    postImage!,
+                    width: double.infinity,
+                    fit: BoxFit.cover,
+                    errorBuilder: (context, error, stackTrace) {
+                      return Container(
+                        height: 250.h,
+                        color: Colors.grey[200],
+                        child: const Center(
+                          child: Icon(
+                            Icons.broken_image,
+                            size: 45,
+                            color: Colors.grey,
+                          ),
+                        ),
+                      );
+                    },
+                  ),
                 ),
               ),
+            ],
+
             SizedBox(height: 5.h),
 
-            // LIKE, COMMENT AND SHARE BUTTONS
+            // LIKE, COMMENT AND SHARE
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -102,7 +119,6 @@ class NewsFeedCard extends StatelessWidget {
                     color: FB_DARK_PRIMARY,
                   ),
                 ),
-
                 TextButton.icon(
                   onPressed: () {
                     debugPrint('Comment pressed');
@@ -114,7 +130,6 @@ class NewsFeedCard extends StatelessWidget {
                     color: FB_DARK_PRIMARY,
                   ),
                 ),
-
                 TextButton.icon(
                   onPressed: () {
                     debugPrint('Share pressed');
@@ -134,7 +149,12 @@ class NewsFeedCard extends StatelessWidget {
               children: [
                 CircleAvatar(
                   radius: 16.r,
-                  backgroundImage: const AssetImage('assets/images/owl.jpg'),
+                  backgroundColor: Colors.grey[300],
+                  child: const Icon(
+                    Icons.person,
+                    color: Colors.white,
+                    size: 19,
+                  ),
                 ),
                 SizedBox(width: 10.w),
                 Expanded(
