@@ -8,12 +8,6 @@ A new Flutter project.
 
 ### INF241
 
-### Laboratory 1: Discussion
-
-This activity helped me understand how to organize a Flutter project using proper file structuring and reusable widgets. By separating components into different files, the code becomes cleaner, easier to understand, and easier to maintain.
-
-For the enhancements, I improved the newsfeed card by adding a placeholder for the image area, changing the user profile avatar, and using widget-based buttons for the like and comment sections. These changes helped me understand how Flutter widgets can be reused and customized to improve the application's interface.
-
 ## Lab Activity 2: discussion
 
 To implement the 10 posts and 20 notifications efficiently, I organized the data into structured models (`PostData` and `NotificationEntry`) and rendered them using scrollable list builders (`ListView.builder` and `ListView.separated`) paired with reusable widgets (`NewsFeedCard` and `NotificationItem`)[cite: 2, 3]. Using list builders avoids duplicating repetitive widget code and keeps scrolling smooth, while `flutter_screenutil` helps keep font sizes, spacing, and card dimensions responsive across different screen sizes.
